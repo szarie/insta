@@ -3,6 +3,7 @@ import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 interface ExtractResponse {
   platform: string;
@@ -14,7 +15,6 @@ interface ExtractResponse {
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  // providers: [provideHttpClient()],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -37,7 +37,7 @@ export class AppComponent {
     this.copied = false;
     try {
       this.result = await firstValueFrom(
-        this.http.post<ExtractResponse>('http://localhost:8000/api/extract', { url: this.url.value }),
+        this.http.post<ExtractResponse>(`${environment.apiUrl}/api/extract`, { url: this.url.value }),
       );
     } catch (error: any) {
       this.error = error?.error?.detail ?? 'Something went wrong while extracting the description.';
