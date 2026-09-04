@@ -1,0 +1,30 @@
+<main class="page">
+  <section class="hero">
+    <p class="eyebrow">SOCIAL DESCRIPTION EXTRACTOR</p>
+    <h1>Get the words<br /><span>behind the post.</span></h1>
+    <p class="intro">Paste a public Instagram or YouTube link and copy its description in seconds.</p>
+
+    <form (submit)="$event.preventDefault(); extract()" class="extract-form">
+      <label for="url">Public post or video URL</label>
+      <div class="input-row">
+        <input id="url" [formControl]="url" placeholder="https://..." autocomplete="url" />
+        <button type="button" (click)="extract()" [disabled]="loading">
+          {{ loading ? 'Extracting...' : 'Extract description' }}
+        </button>
+      </div>
+      <small *ngIf="url.touched && url.invalid">Please enter a link.</small>
+    </form>
+
+    <p class="error" *ngIf="error" role="alert">{{ error }}</p>
+
+    <section class="result" *ngIf="result" aria-live="polite">
+      <div class="result-heading">
+        <span>{{ result.platform }} description</span>
+        <button class="copy" type="button" (click)="copyDescription()">
+          {{ copied ? 'Copied!' : 'Copy text' }}
+        </button>
+      </div>
+      <p>{{ result.description }}</p>
+    </section>
+  </section>
+</main>
