@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://REPLACE_WITH_YOUR_APP_RUNNER_URL',
+  // Angular and FastAPI share the same domain in the EC2 deployment.
+  apiUrl: '',
 };
